@@ -1,0 +1,13 @@
+Sep 27 16:17:55.527 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Sep 27 16:17:55.528 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 33680.
+Sep 27 16:17:55.680 HYPERVISOR: exec_cmd: hypervisor version 
+Sep 27 16:17:55.680 HYPERVISOR: exec_cmd: hypervisor uuid 
+Sep 27 16:17:55.680 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Users/Samuel/GNS3/Projects/Single_Router\project-files\dynamips 
+Sep 27 16:17:55.774 GENERAL: working_dir=C:/Users/Samuel/GNS3/Projects/Single_Router\project-files\dynamips
+Sep 27 16:17:55.774 HYPERVISOR: exec_cmd: ethsw create S1 
+Sep 27 16:17:55.930 HYPERVISOR: exec_cmd: nio create_udp udp-908e7cb2-ee93-4c59-bf40-0d84f5a0a334 10003 127.0.0.1 10002 
+Sep 27 16:17:55.930 HYPERVISOR: exec_cmd: ethsw add_nio S1 udp-908e7cb2-ee93-4c59-bf40-0d84f5a0a334 
+Sep 27 16:17:55.961 HYPERVISOR: exec_cmd: ethsw set_access_port S1 udp-908e7cb2-ee93-4c59-bf40-0d84f5a0a334 1 
+Sep 27 16:17:56.644 HYPERVISOR: exec_cmd: nio create_udp udp-296db124-3f8c-4e1c-a6bd-f1b570547653 10010 127.0.0.1 10011 
+Sep 27 16:17:56.644 HYPERVISOR: exec_cmd: ethsw add_nio S1 udp-296db124-3f8c-4e1c-a6bd-f1b570547653 
+Sep 27 16:17:56.676 HYPERVISOR: exec_cmd: ethsw set_access_port S1 udp-296db124-3f8c-4e1c-a6bd-f1b570547653 1 

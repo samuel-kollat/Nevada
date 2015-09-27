@@ -1,0 +1,13 @@
+Sep 27 16:17:55.548 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Sep 27 16:17:55.549 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 33681.
+Sep 27 16:17:55.680 HYPERVISOR: exec_cmd: hypervisor version 
+Sep 27 16:17:55.680 HYPERVISOR: exec_cmd: hypervisor uuid 
+Sep 27 16:17:55.680 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Users/Samuel/GNS3/Projects/Single_Router\project-files\dynamips 
+Sep 27 16:17:55.774 GENERAL: working_dir=C:/Users/Samuel/GNS3/Projects/Single_Router\project-files\dynamips
+Sep 27 16:17:55.790 HYPERVISOR: exec_cmd: ethsw create S2 
+Sep 27 16:17:55.977 HYPERVISOR: exec_cmd: nio create_udp udp-6c4b829a-8566-4a32-9174-68042161fc94 10005 127.0.0.1 10004 
+Sep 27 16:17:55.993 HYPERVISOR: exec_cmd: ethsw add_nio S2 udp-6c4b829a-8566-4a32-9174-68042161fc94 
+Sep 27 16:17:56.008 HYPERVISOR: exec_cmd: ethsw set_access_port S2 udp-6c4b829a-8566-4a32-9174-68042161fc94 1 
+Sep 27 16:17:56.707 HYPERVISOR: exec_cmd: nio create_udp udp-c12f3643-ccbf-42c2-9077-e0d21889f2b0 10013 127.0.0.1 10012 
+Sep 27 16:17:56.722 HYPERVISOR: exec_cmd: ethsw add_nio S2 udp-c12f3643-ccbf-42c2-9077-e0d21889f2b0 
+Sep 27 16:17:56.738 HYPERVISOR: exec_cmd: ethsw set_access_port S2 udp-c12f3643-ccbf-42c2-9077-e0d21889f2b0 1 
