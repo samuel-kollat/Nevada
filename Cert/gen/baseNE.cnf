@@ -1,0 +1,102 @@
+#
+# This config file used as base config for generating the a Network Element (aka node) 
+# specific p12 file 
+# 
+# This file supports these variables:
+#   NE_COMMONNAME
+#   NE_UNSTRUCTUREDNAME
+#   NE_IPADDR
+#   NE_DNSNAME
+# Replace these with the proper values before generating the NE certificate
+# 
+
+#
+# "ca" config stuff is because openssl expects this to pre-populate some
+# client request values. Some settings are ignored.
+#
+
+[ ca ]
+default_ca      = CA_default            # The default ca section
+
+[ CA_default ]
+dir            = ${ENV::HOME}/.simpleCA/                # top dir for all CA state 
+database       = $dir/index.txt        # index file 
+new_certs_dir  = $dir/newcerts         # new certs dir
+
+certificate    = $dir/cacert.crt       # The CA cert 
+serial         = $dir/serial           # serial no file 
+private_key    = $dir/cacert.key       # CA private key 
+#RANDFILE       = $dir/private/.rnd     # random number file
+
+default_days   = 365                   # how long to certify for
+default_crl_days= 30                   # how long before next CRL
+default_md     =  sha1                 # md to use
+
+policy         = policy_any            # default policy
+email_in_dn    = no                    # Don't add the email into cert DN
+
+name_opt       = ca_default            # Subject name display option
+cert_opt       = ca_default            # Certificate display option
+copy_extensions = none                 # Don't copy extensions from request
+x509_extensions = client_cert          # The extensions to add to certs issued
+
+# to enable a demo client to be run multiple times we DISABLE unique subject
+# checking. This significantly reduces the security of this CA!!
+unique_subject=no
+
+# This policy applies to clients *and* it apples to the CA cert itself
+[ policy_any ]
+commonName              = supplied
+serialNumber            = optional 
+
+# this section is used when issuing certs from simpleEnroll.sh
+[ client_cert ]
+# These extensions are added when 'ca' signs a request.
+
+# This goes against PKIX guidelines but some CAs do it and some software
+# requires this to avoid interpreting an end user certificate as a CA.
+# It is left off here because we want to test in accordance with the guidelines
+# basicConstraints=CA:FALSE
+
+keyUsage=critical,digitalSignature,keyEncipherment,dataEncipherment
+
+# PKIX recommendations harmless if included in all certificates.
+subjectKeyIdentifier=hash
+#authorityKeyIdentifier=keyid,issuer
+authorityKeyIdentifier=keyid
+
+[ req ]
+default_bits           = 2048
+# setting prompt to no changes the section formats!
+# if you change this then other sections of this config file need to be updated
+prompt = no
+distinguished_name     = req_distinguished_name
+req_extensions         = req_exten
+
+[ req_distinguished_name ]
+# openssl generates the request with multiple common names
+# and openssl x509 can parse it
+# but asn1parse fails to parse it on openssl 0.9.8y
+# asn1parse succeeded to parse it on openssl 1.0.1
+# so check your version if you have problems
+#
+1.commonName = NE_COMMONNAME
+#2.commonName = 2.cn.example.com
+unstructuredName = NE_UNSTRUCTUREDNAME
+
+[ req_exten ]
+subjectAltName = @alt_names
+
+# onepk_setup.sh references this section for initial CA values
+[ v3_ca ]
+basicConstraints    =critical,CA:TRUE
+subjectKeyIdentifier=hash
+keyUsage            =critical,keyCertSign,cRLSign
+
+[ alt_names ]
+DNS.1                  = NE_DNSNAME
+#DNS.2                  = 2.dns.example.com
+IP.1                   = NE_IPADDR
+#IP.2                   = 10.0.0.2
+#IP.3                   = 2001:0db8:85a3:0042:1000:8a2e:0370:7334 
+

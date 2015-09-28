@@ -1,0 +1,10 @@
+V	301210000000Z		01	unknown	/CN=onePK simpleCA
+V	301210000000Z		02	unknown	/unstructuredName=router1
+V	301210000000Z		03	unknown	/unstructuredName=router2
+V	301210000000Z		04	unknown	/unstructuredName=router3
+V	301210000000Z		05	unknown	/CN=cisco-onepk
+V	301210000000Z		06	unknown	/CN=Router
+V	301210000000Z		07	unknown	/CN=R3_Exporter
+V	301210000000Z		08	unknown	/CN=router-up
+V	301210000000Z		09	unknown	/CN=router-down
+V	301210000000Z		0A	unknown	/CN=cisco

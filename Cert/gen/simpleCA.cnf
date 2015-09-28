@@ -1,0 +1,79 @@
+#
+# This config file used as an Ugly Simple CA for ONEPK test case purposes
+#
+#
+
+[ ca ]
+default_ca      = CA_default            # The default ca section
+
+[ CA_default ]
+dir            = ${ENV::HOME}/cisco/cert/gen/dbCA                # top dir for all CA state
+database       = $dir/index.txt        # index file 
+new_certs_dir  = $dir/newcerts         # new certs dir
+
+certificate    = $dir/cacert.crt       # The CA cert 
+serial         = $dir/serial           # serial no file 
+private_key    = $dir/cacert.key       # CA private key 
+#RANDFILE       = $dir/private/.rnd     # random number file
+
+# NOTE that it isn't a good idea to have all your certs start being
+# valid in the past like this. We're doing this here so that we don't
+# need to worry about time zone issues and mismatched clocks. That issue
+# is important and folks will figure that out when they start using a real
+# CA but here to goal is to get the basic infrastructure (e.g. using TLS) up
+# and running
+default_startdate = 121210000000Z      # This cool looking number is also my birthday!
+default_enddate = 301210000000Z        
+default_days   = 10                   # how long to certify for
+default_crl_days= 30                   # how long before next CRL
+default_md     =  sha1                 # md to use
+
+email_in_dn    = no                    # Don't add the email into cert DN
+
+name_opt       = ca_default            # Subject name display option
+cert_opt       = ca_default            # Certificate display option
+
+# the interaction between this and the copy_extensions is unclear
+policy         = policy_any            # default policy
+# totally not secure!!
+# But: " The main use of this option is to allow a certificate request to supply values for certain extensions such as subjectAltName "
+copy_extensions = copy                 
+
+x509_extensions = client_cert          # The extensions to add to certs issued
+
+# to enable a demo client to be run multiple times we DISABLE unique subject
+# checking. This significantly reduces the security of this CA!!
+unique_subject=no
+
+# This policy applies to clients *and* it apples to the CA cert itself
+[ policy_any ]
+commonName              = optional
+unstructuredName = optional
+
+[ req_distinguished_name ]
+x509_extensions        = v3_ca
+
+# onepk_setup.sh references this section for initial CA values
+[ v3_ca ]
+basicConstraints    =critical,CA:TRUE
+subjectKeyIdentifier=hash
+keyUsage            =critical,keyCertSign,cRLSign
+
+[ req ]
+default_bits           = 2048
+distinguished_name     = req_distinguished_name
+
+[ client_cert ]
+# These extensions are added when 'ca' signs a request
+
+# This goes against PKIX guidelines but some CAs do it and some software
+# requires this to avoid interpreting an end user certificate as a CA.
+# It is left off here because we want to test in accordance with the guidelines
+# basicConstraints=CA:FALSE
+
+keyUsage=critical,digitalSignature,keyEncipherment,dataEncipherment
+# PKIX recommendations harmless if included in all certificates.
+subjectKeyIdentifier=hash
+#authorityKeyIdentifier=keyid,issuer
+authorityKeyIdentifier=keyid
+
